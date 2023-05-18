@@ -10,16 +10,20 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateProfileOfUser } = useContext(AuthContext);
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        updateProfileOfUser(data.name, data.photo)
+          .then(() => {
+            console.log("photoupdated");
+          })
+          .catch((error) => {});
       })
       .catch((error) => {
         const errorMessage = error.message;
-        
       });
   };
   return (

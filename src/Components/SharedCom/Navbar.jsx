@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const {user,logOut} = useContext(AuthContext)
+  const handleLogout=()=>{
+    logOut();
+  }
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -56,16 +61,14 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">Toy-Car Store</a>
+        <Link to='/' className="btn btn-ghost normal-case text-xl">Toy-Car Store</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
             <Link to='/'>Home</Link>
           </li>
-          <li>
-            <Link to='/login'>Login</Link>
-          </li>
+          
           <li>
             <Link to='/login'>All toys</Link>
           </li>
@@ -75,7 +78,12 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Get started</a>
+      {user? <div className="flex gap-4 justify-center items-center">
+      <img className="w-10 rounded-full" title={user.displayName} src={user?.photoURL} alt="" />
+      <Link className="btn btn-outline">Add a Toy</Link>
+      <Link className="btn btn-outline">My Toys</Link>
+      <button onClick={handleLogout} className="btn btn-error">Logout</button>
+      </div> :  <Link className="btn btn-secondary" to='/login'>Login</Link>}
       </div>
     </div>
   );
