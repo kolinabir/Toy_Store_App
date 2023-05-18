@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   const {
@@ -9,8 +11,30 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(watch("example"));
+  const { Login, loginWithGoogle } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    Login(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+      });
+  };
+  const handleGoogleLogin = () => {
+    loginWithGoogle()
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
   return (
     <div className="mx-20 text-center my-20">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
@@ -41,16 +65,16 @@ const Login = () => {
       </form>
       <div className="flex justify-center my-3">
         <div
-          className=" mx-auto 
+          className=" mx-auto px-6 sm:px-0 max-w-sm
       "
-          class="px-6 sm:px-0 max-w-sm"
         >
           <button
+            onClick={handleGoogleLogin}
             type="button"
-            class="text-white  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+            className="text-white  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
           >
             <svg
-              class="mr-2 -ml-1 w-4 h-4"
+              className="mr-2 -ml-1 w-4 h-4"
               aria-hidden="true"
               focusable="false"
               data-prefix="fab"

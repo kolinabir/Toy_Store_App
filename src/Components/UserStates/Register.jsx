@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Register = () => {
   const {
@@ -9,8 +10,18 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-  console.log(watch("example"));
+  const { createUser } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    createUser(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        
+      });
+  };
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
