@@ -11,11 +11,7 @@ const AllToys = () => {
         {/* head */}
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
+            
             <th>Seller</th>
             <th>Toy Name</th>
             <th>Sub-category</th>
@@ -28,11 +24,7 @@ const AllToys = () => {
           {toysToShow.map((toy) => (
             <>
               <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
+                
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">
@@ -51,9 +43,7 @@ const AllToys = () => {
                 <td>
                   {toy.name}
                   <br />
-                  <span className="badge-ghost badge badge-sm">
-                    Desktop Support Technician
-                  </span>
+                  
                 </td>
                 <td>{toy.subcategory}</td>
                 <th>${toy.price}</th>
