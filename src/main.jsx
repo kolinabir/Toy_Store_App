@@ -9,12 +9,17 @@ import Login from "./Components/UserStates/Login.jsx";
 
 import Home from "./Components/Home/Home.jsx";
 import AuthProvider from "./Components/AuthProvider/AuthProvider.jsx";
+import FirstPage from "./Components/FirstPage/FirstPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
     children:[
+      {
+        path:'/',
+        element:<FirstPage></FirstPage>
+      },
       {
         path:'/login',
         element: <Login></Login>
