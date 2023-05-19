@@ -5,7 +5,8 @@ const AllToys = () => {
   const toys = useLoaderData();
   const toysToShow = toys.slice(0, 20);
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="lg:mx-20 mx-3">
+      <div className="w-full overflow-x-auto">
       <table className="table w-full">
         {/* head */}
         <thead>
@@ -48,27 +49,33 @@ const AllToys = () => {
                   </div>
                 </td>
                 <td>
-                 {toy.name}
+                  {toy.name}
                   <br />
                   <span className="badge-ghost badge badge-sm">
                     Desktop Support Technician
                   </span>
                 </td>
                 <td>{toy.subcategory}</td>
-                <th>
-                 ${toy.price}
-                </th>
+                <th>${toy.price}</th>
                 <td className="text-center">{toy.quantity}</td>
-               
-                <td className=""><button className="btn btn-outline"><Link to={`/toyDetails/${toy._id}`} className="" type="button">
-                View Details
-              </Link></button></td>
+
+                <td className="">
+                  <button className="btn-outline btn">
+                    <Link
+                      to={`/toyDetails/${toy._id}`}
+                      className=""
+                      type="button"
+                    >
+                      View Details
+                    </Link>
+                  </button>
+                </td>
               </tr>
             </>
           ))}
         </tbody>
       </table>
-    </div>
+    </div></div>
   );
 };
 

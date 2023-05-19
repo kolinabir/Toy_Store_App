@@ -44,7 +44,7 @@ const Navbar = () => {
               </li>
               {user ? (
                 <div className="flex flex-col gap-2 ">
-                  <Link className="btn-outline btn ">Add a Toy</Link>
+                  <Link to='/addtoy' className="btn-outline btn ">Add a Toy</Link>
                   <Link className="btn-outline btn ">My Toys</Link>
                   <button onClick={handleLogout} className="btn-error btn ">
                     Logout
@@ -85,7 +85,7 @@ const Navbar = () => {
                 alt=""
               />
               <div className=" hidden gap-4 lg:flex">
-                <Link className="btn-outline btn">Add a Toy</Link>
+                <Link to='/addtoy' className="btn-outline btn">Add a Toy</Link>
                 <Link className="btn-outline btn">My Toys</Link>
                 <button onClick={handleLogout} className="btn-error btn">
                   Logout
