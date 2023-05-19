@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
 
@@ -12,11 +12,14 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const { Login, loginWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const onSubmit = (data) => {
     Login(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -26,7 +29,7 @@ const Login = () => {
     loginWithGoogle()
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-
+        navigate(from, { replace: true });
         const user = result.user;
         console.log(user);
       })
@@ -36,13 +39,13 @@ const Login = () => {
       });
   };
   return (
-    <div className="mx-20 text-center my-20">
+    <div className="mx-20 my-20 text-center">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
         <div className="space-y-3">
           <h1 className="text-3xl font-bold">Email</h1>
           <input
             type="email"
-            className="border-4 rounded-lg input input-bordered input-info w-[50%] py-2"
+            className="input-bordered input-info input w-[50%] rounded-lg border-4 py-2"
             defaultValue=""
             {...register("email")}
           />
@@ -51,7 +54,7 @@ const Login = () => {
           <h2 className="text-3xl  font-bold">Password</h2>
           <input
             type="password"
-            className="border-4 input input-bordered input-info rounded-lg w-[50%] py-2"
+            className="input-bordered input-info input w-[50%] rounded-lg border-4 py-2"
             defaultValue=""
             {...register("password")}
           />
@@ -60,21 +63,21 @@ const Login = () => {
         <div>
           {/* errors will return when field validation fails  */}
           {errors.exampleRequired && <span>This field is required</span>}
-          <input className="btn btn-primary" type="submit" value="Login" />
+          <input className="btn-primary btn" type="submit" value="Login" />
         </div>
       </form>
-      <div className="flex justify-center my-3">
+      <div className="my-3 flex justify-center">
         <div
-          className=" mx-auto px-6 sm:px-0 max-w-sm
+          className=" mx-auto max-w-sm px-6 sm:px-0
       "
         >
           <button
             onClick={handleGoogleLogin}
             type="button"
-            className="text-white  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+            className="dark:focus:ring-[#4285F4]/55  mb-2 mr-2 inline-flex items-center justify-between rounded-lg bg-[#4285F4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#4285F4]/90 focus:outline-none focus:ring-4 focus:ring-[#4285F4]/50"
           >
             <svg
-              className="mr-2 -ml-1 w-4 h-4"
+              className="-ml-1 mr-2 h-4 w-4"
               aria-hidden="true"
               focusable="false"
               data-prefix="fab"

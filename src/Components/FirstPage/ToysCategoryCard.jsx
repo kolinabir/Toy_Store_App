@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const ToysCategoryCard = ({categoryName}) => {
+const ToysCategoryCard = ({ categoryName }) => {
   const [toys, setToys] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:5003/toys/${categoryName}`) // Make a GET request to the server with the activeTab value in the URL
@@ -12,7 +13,7 @@ const ToysCategoryCard = ({categoryName}) => {
   }, []);
 
   return (
-    <div className="grid lg:grid-cols-4 gap-3">
+    <div className="grid gap-3 lg:grid-cols-4">
       {toys.map((toy) => (
         <div className="">
           <div className="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
@@ -28,7 +29,7 @@ const ToysCategoryCard = ({categoryName}) => {
                 <p className="text-blue-gray-900 block font-sans text-2xl font-bold leading-relaxed antialiased">
                   {toy.name}
                 </p>
-                
+
                 <p className="text-blue-gray-900 block font-sans text-base font-medium leading-relaxed antialiased">
                   ${toy.price}
                 </p>
@@ -37,12 +38,9 @@ const ToysCategoryCard = ({categoryName}) => {
               <p>{toy.description}</p>
             </div>
             <div className="p-6 pt-0">
-              <button
-                className="btn btn-accent"
-                type="button"
-              >
+              <Link to={`/toyDetails/${toy._id}`} className="btn-accent btn" type="button">
                 View Details
-              </button>
+              </Link>
             </div>
           </div>
         </div>
