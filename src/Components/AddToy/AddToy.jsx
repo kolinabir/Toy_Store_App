@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -7,6 +7,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const AddToy = () => {
   const { user } = useContext(AuthContext);
+
   const onSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -15,29 +16,33 @@ const AddToy = () => {
     const sellerEmail = form.sellerEmail.value;
     const subcategory = form.subcategory.value;
     const rating = form.rating.value;
+    const price = form.price.value;
     const quantity = form.quantity.value;
     const pictureURL = form.pictureURL.value;
-    const data={
-        name: name,
-        sellerName: sellerName,
-        sellerEmail: sellerEmail,
-        subcategory : subcategory,
-        rating: rating,
-        quantity : quantity,
-        pictureURL : pictureURL
-    }
-    fetch('http://localhost:5003/toys', {
-      method: 'POST',
-      headers:{
-        'content-type' : 'application/json'
+    const description = form.description.value;
+    const data = {
+      name: name,
+      sellerName: sellerName,
+      sellerEmail: sellerEmail,
+      subcategory: subcategory,
+      rating: rating,
+      quantity: quantity,
+      pictureURL: pictureURL,
+      price: price,
+      description: description
+    };
+    fetch("http://localhost:5003/toys", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log("data added");
-      form.reset()
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data added");
+        form.reset();
+      });
   };
   return (
     <div>
@@ -92,21 +97,18 @@ const AddToy = () => {
                 className="mt-2 block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-500"
               />
             </div>
+
             <div>
-              <label
-                className="text-white dark:text-gray-200"
-                htmlFor="passwordConfirmation"
-              >
-                Select Sub-Category
+              <label className="text-white dark:text-gray-200" htmlFor="price">
+                Sub Category
               </label>
-              <select
+              <input
+                label="subcategory"
                 name="subcategory"
+                id="subcategory"
+                type="text"
                 className="mt-2 block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-500"
-              >
-                <option>Retro</option>
-                <option>Speed</option>
-                <option>Off-Road</option>
-              </select>
+              />
             </div>
             <div>
               <label className="text-white dark:text-gray-200" htmlFor="price">
@@ -114,7 +116,7 @@ const AddToy = () => {
               </label>
               <input
                 label="price"
-                name="subcategory"
+                name="price"
                 id="price"
                 type="text"
                 className="mt-2 block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-500"
@@ -162,6 +164,16 @@ const AddToy = () => {
                 className="mt-2 block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-500"
               />
             </div>
+          </div>
+          <div className="my-8 space-y-2">
+          <label className="text-white dark:text-gray-200" htmlFor="price">
+          Description
+              </label>
+            <textarea
+            name="description"
+              placeholder="description"
+              className="textarea-bordered textarea textarea-lg w-full"
+            ></textarea>
           </div>
           <div className="my-5 flex justify-center">
             <input className="btn" type="submit" />
