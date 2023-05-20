@@ -16,11 +16,13 @@ import AllToys from "./Components/AllToys/AllToys.jsx";
 import AddToy from "./Components/AddToy/AddToy.jsx";
 import MyToys from "./Components/MyToys/MyToys.jsx";
 import UpdateInfo from "./Components/UpdateInfo/UpdateInfo.jsx";
+import ErrorPage from "./Components/ErrorPage/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
