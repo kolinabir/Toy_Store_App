@@ -9,7 +9,21 @@ const MyToys = () => {
     fetch(`http://localhost:5003/toys/seller/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyToys(data));
-  }, [user]);
+  }, [myToys]);
+  const handleDelete=(_id)=>{
+    fetch(`http://localhost:5003/toys/${_id}`,{
+        method : "DELETE",
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data);
+        if (data.deletedCount>0) {
+            alert('deleted successfully')
+        }
+    })
+    
+
+  }
   return (
     <div>
       <div className="mx-3 lg:mx-20">
@@ -62,9 +76,8 @@ const MyToys = () => {
                         Update
                       </Link>
                     </td>
-
                     <td className="">
-                      <button className="btn-outline btn">Delete</button>
+                      <button onClick={()=>handleDelete(toy._id)} className="btn-outline btn">Delete</button>
                     </td>
                   </tr>
                 </>

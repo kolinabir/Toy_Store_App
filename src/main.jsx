@@ -21,44 +21,59 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
-    children:[
+    children: [
       {
-        path:'/',
-        element:<FirstPage></FirstPage>
+        path: "/",
+        element: <FirstPage></FirstPage>,
       },
       {
-        path:'/login',
-        element: <Login></Login>
+        path: "/login",
+        element: <Login></Login>,
       },
       {
-        path:'register',
-        element: <Register></Register>
+        path: "register",
+        element: <Register></Register>,
       },
       {
-        path:'alltoys',
+        path: "alltoys",
         element: <AllToys></AllToys>,
-        loader:()=>fetch('http://localhost:5003/toys')
+        loader: () => fetch("http://localhost:5003/toys"),
       },
       {
-        path:'addtoy',
-        element: <PrivateRoute><AddToy></AddToy></PrivateRoute>,
-        
+        path: "addtoy",
+        element: (
+          <PrivateRoute>
+            <AddToy></AddToy>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'mytoys',
-        element: <PrivateRoute><MyToys></MyToys></PrivateRoute>,
-        
+        path: "mytoys",
+        element: (
+          <PrivateRoute>
+            <MyToys></MyToys>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'toyDetails/:id',
-        element:<PrivateRoute><ToyDetails></ToyDetails></PrivateRoute>,
-        loader:({params})=>fetch(`http://localhost:5003/toys/${params.id}`)
+        path: "toyDetails/:id",
+        element: (
+          <PrivateRoute>
+            <ToyDetails></ToyDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5003/toys/${params.id}`),
       },
       {
-        path:'updateinfo/:id',
-        element:<UpdateInfo></UpdateInfo>
-      }
-    ]
+        path: "updateinfo/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateInfo></UpdateInfo>
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
 ]);
 
