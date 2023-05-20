@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 const MyToys = () => {
   const { user, loading } = useContext(AuthContext);
   const [myToys, setMyToys] = useState([]);
+  
   useEffect(() => {
     fetch(`http://localhost:5003/toys/seller/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyToys(data));
-  }, [myToys]);
+  }, []);
   const handleDelete = (_id) => {
     fetch(`http://localhost:5003/toys/${_id}`, {
       method: "DELETE",
@@ -21,6 +22,16 @@ const MyToys = () => {
           alert("deleted successfully");
         }
       });
+  };
+  const handleAscending = () => {
+    fetch(`http://localhost:5003/toys/orderAc/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setMyToys(data));
+  };
+  const handleDescending = () => {
+    fetch(`http://localhost:5003/toys/orderDc/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setMyToys(data));
   };
   if (loading) {
     return (
@@ -50,6 +61,13 @@ const MyToys = () => {
     <div>
       <div className="mx-3 lg:mx-20">
         <div className="h-[100vh] w-full overflow-x-auto">
+            <h1 className="text-center my-4">Order Of Price:</h1>
+          <div className="mb-10 flex justify-center gap-4">
+            <button onClick={handleAscending} className="btn">
+              Ascending
+            </button>
+            <button onClick={handleDescending} className="btn">Descending</button>
+          </div>
           <table className="table w-full ">
             {/* head */}
             <thead>

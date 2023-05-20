@@ -40,16 +40,16 @@ const AddToy = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data added");
+        alert('Toy Added Successfully')
         form.reset();
       });
   };
   return (
-    <div>
+    <div className="lg:my-20">
       {" "}
       <section className="mx-auto mt-20 max-w-4xl rounded-md bg-indigo-600 p-6 shadow-md dark:bg-gray-800">
-        <h1 className="text-xl font-bold capitalize text-white dark:text-white">
-          Account settings
+        <h1 className="text-center text-xl font-bold capitalize text-white dark:text-white">
+          Add Your Toy Information
         </h1>
         <form onSubmit={onSubmit}>
           <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -176,7 +176,7 @@ const AddToy = () => {
             ></textarea>
           </div>
           <div className="my-5 flex justify-center">
-            <input className="btn" type="submit" />
+            <input className="btn" type="submit" value="submit"/>
           </div>
         </form>
       </section>
