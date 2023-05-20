@@ -5,7 +5,7 @@ import Footer from '../SharedCom/Footer';
 
 const Home = () => {
     return (
-        <div>
+        <div className='overflow-hidden'>
             <Navbar></Navbar>
             <Outlet></Outlet>
             <Footer></Footer>

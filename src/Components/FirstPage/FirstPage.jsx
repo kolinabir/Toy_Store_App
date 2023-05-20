@@ -7,9 +7,15 @@ import ShopByCat from "./ShopByCat";
 const FirstPage = () => {
   return (
     <div className="lg:mx-20">
-      <Banner></Banner>
+      <div
+        data-aos="fade-up"
+        data-aos-duration="3000"
+        data-aos-anchor-placement="top-bottom"
+      >
+        <Banner></Banner>
+      </div>
       {/* <GallerySec></GallerySec> */}
-      <div className="lg:mx:20 mx-3 my-20">
+      <div className="lg:mx:20 mx-3 my-20" data-aos="zoom-in">
         <h2 className="mt-4 text-center text-3xl font-bold">
           Our Cars Gallery
         </h2>
@@ -18,8 +24,10 @@ const FirstPage = () => {
         </p>
         <Experi></Experi>
       </div>
-      <div className="my-20"> 
-        <h2 className="my-4 text-center text-3xl font-bold">Shop by Category</h2>
+      <div className="my-20">
+        <h2 className="my-4 text-center text-3xl font-bold">
+          Shop by Category
+        </h2>
         <ShopByCat></ShopByCat>
       </div>
     </div>

@@ -7,6 +7,7 @@ import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 const photos = [
   {
     src: "../../../public/photos/alev-takil-48lEHdLa-nQ-unsplash.jpg",
@@ -109,7 +110,7 @@ export default function Experi() {
   const [index, setIndex] = useState(-1);
 
   return (
-    <>
+    <div >
       <PhotoAlbum
         photos={photos}
         layout="rows"
@@ -124,6 +125,6 @@ export default function Experi() {
         close={() => setIndex(-1)}
         plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
       />
-    </>
+    </div>
   );
 }

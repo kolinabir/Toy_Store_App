@@ -40,7 +40,7 @@ const Navbar = () => {
                 <Link to="/alltoys">All toys</Link>
               </li>
               <li>
-                <Link to="/login">Blogs</Link>
+                <Link to="/blogs">Blogs</Link>
               </li>
               {user ? (
                 <div className="flex flex-col gap-2 ">
@@ -71,7 +71,7 @@ const Navbar = () => {
               <Link to="/alltoys">All toys</Link>
             </li>
             <li>
-              <Link to="/login">Blogs</Link>
+              <Link to="/blogs">Blogs</Link>
             </li>
           </ul>
         </div>

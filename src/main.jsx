@@ -17,6 +17,7 @@ import AddToy from "./Components/AddToy/AddToy.jsx";
 import MyToys from "./Components/MyToys/MyToys.jsx";
 import UpdateInfo from "./Components/UpdateInfo/UpdateInfo.jsx";
 import ErrorPage from "./Components/ErrorPage/ErrorPage.jsx";
+import Blogs from "./Components/Blogs/Blogs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>,
+      },
+      {
+        path: "blogs",
+        element:<Blogs></Blogs>
       },
       {
         path: "alltoys",

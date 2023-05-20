@@ -4,6 +4,11 @@ import { useLoaderData } from "react-router-dom";
 const ToyDetails = () => {
   const toyDetail = useLoaderData();
   console.log(toyDetail);
+  if (toyDetail===null) {
+    return <div>Loading</div>
+  }
+
+
   return (
     <div class="mx-auto my-10 max-w-[85rem] px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col-reverse lg:grid gap-4 md:grid-cols-2 md:items-center md:gap-8 xl:gap-20">
