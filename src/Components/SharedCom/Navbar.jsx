@@ -86,7 +86,7 @@ const Navbar = () => {
               />
               <div className=" hidden gap-4 lg:flex">
                 <Link to='/addtoy' className="btn-outline btn">Add a Toy</Link>
-                <Link className="btn-outline btn">My Toys</Link>
+                <Link to='/mytoys' className="btn-outline btn">My Toys</Link>
                 <button onClick={handleLogout} className="btn-error btn">
                   Logout
                 </button>
