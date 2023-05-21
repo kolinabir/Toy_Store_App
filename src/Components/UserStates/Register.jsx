@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Register = () => {
@@ -10,12 +10,16 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const { createUser, updateProfileOfUser } = useContext(AuthContext);
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        navigate(from, { replace: true });
         updateProfileOfUser(data.name, data.photo)
           .then(() => {
             console.log("photoupdated");
@@ -27,13 +31,13 @@ const Register = () => {
       });
   };
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
+    <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-lg">
         <div className="space-y-4">
           <h1 className="text-3xl font-bold">Name</h1>
           <input
             type="text"
-            className="border-2 rounded-lg px-4 py-2 w-full"
+            className="w-full rounded-lg border-2 px-4 py-2"
             defaultValue=""
             {...register("name")}
           />
@@ -42,7 +46,7 @@ const Register = () => {
           <h1 className="text-3xl font-bold">Email</h1>
           <input
             type="email"
-            className="border-2 rounded-lg px-4 py-2 w-full"
+            className="w-full rounded-lg border-2 px-4 py-2"
             defaultValue=""
             {...register("email")}
           />
@@ -51,7 +55,7 @@ const Register = () => {
           <h2 className="text-3xl font-bold">Password</h2>
           <input
             type="password"
-            className="border-2 rounded-lg px-4 py-2 w-full"
+            className="w-full rounded-lg border-2 px-4 py-2"
             defaultValue=""
             {...register("password")}
           />
@@ -60,18 +64,18 @@ const Register = () => {
           <h2 className="text-3xl font-bold">Photo URL</h2>
           <input
             type="text"
-            className="border-2 rounded-lg px-4 py-2 w-full"
+            className="w-full rounded-lg border-2 px-4 py-2"
             defaultValue=""
             {...register("photo")}
           />
         </div>
 
-        <div className="text-center my-3">
+        <div className="my-3 text-center">
           {errors.exampleRequired && (
             <span className="text-red-500">This field is required</span>
           )}
           <input
-            className="btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="btn rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
             type="submit"
             value="Register"
           />
