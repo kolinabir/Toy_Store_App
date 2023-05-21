@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -33,45 +34,117 @@ const Navbar = () => {
               className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-base-100 p-2 shadow"
             >
               <li>
-                <Link to="/">Home</Link>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                  }
+                  to="/"
+                >
+                  Home
+                </NavLink>
               </li>
 
               <li>
-                <Link to="/alltoys">All toys</Link>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                  }
+                  to="/alltoys"
+                >
+                  All toys
+                </NavLink>
               </li>
               <li>
-                <Link to="/blogs">Blogs</Link>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active" : ""
+                  }
+                  to="/blogs"
+                >
+                  Blogs
+                </NavLink>
               </li>
               {user ? (
                 <div className="flex flex-col gap-2 ">
-                  <Link to='/addtoy' className="btn-outline btn ">Add a Toy</Link>
-                  <Link className="btn-outline btn ">My Toys</Link>
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? "pending btn-outline btn"
+                        : isActive
+                        ? "btn-outline active btn"
+                        : " btn-outline btn"
+                    }
+                    to="/addtoy"
+                  >
+                    Add a Toy
+                  </NavLink>
+                  <NavLink
+                    className={({ isActive, isPending }) =>
+                      isPending
+                        ? "pending btn-outline btn"
+                        : isActive
+                        ? "btn-outline active btn"
+                        : "btn-outline btn"
+                    }
+                  >
+                    My Toys
+                  </NavLink>
                   <button onClick={handleLogout} className="btn-error btn ">
                     Logout
                   </button>
                 </div>
               ) : (
-                <Link className="btn-secondary btn" to="/login">
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending btn-secondary btn mt-2"
+                      : isActive
+                      ? "btn-secondary active btn mt-2"
+                      : "btn-outline btn mt-2"
+                  }
+                  to="/login"
+                >
                   Login
-                </Link>
+                </NavLink>
               )}
             </ul>
           </div>
-          <Link to="/" className="btn-ghost btn text-xl normal-case">
+          <NavLink to="/" className="btn-ghost btn text-xl normal-case">
             Toy-Car Store
-          </Link>
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
+                to="/"
+              >
+                Home
+              </NavLink>
             </li>
 
             <li>
-              <Link to="/alltoys">All toys</Link>
+              <NavLink
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
+                to="/alltoys"
+              >
+                All toys
+              </NavLink>
             </li>
             <li>
-              <Link to="/blogs">Blogs</Link>
+              <NavLink
+                className={({ isActive, isPending }) =>
+                  isPending ? "pending" : isActive ? "active" : ""
+                }
+                to="/blogs"
+              >
+                Blogs
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -85,8 +158,12 @@ const Navbar = () => {
                 alt=""
               />
               <div className=" hidden gap-4 lg:flex">
-                <Link to='/addtoy' className="btn-outline btn">Add a Toy</Link>
-                <Link to='/mytoys' className="btn-outline btn">My Toys</Link>
+                <Link to="/addtoy" className="btn-outline btn">
+                  Add a Toy
+                </Link>
+                <Link to="/mytoys" className="btn-outline btn">
+                  My Toys
+                </Link>
                 <button onClick={handleLogout} className="btn-error btn">
                   Logout
                 </button>

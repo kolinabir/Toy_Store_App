@@ -31,7 +31,7 @@ const AddToy = () => {
       price: price,
       description: description
     };
-    fetch("http://localhost:5003/toys", {
+    fetch("https://toy-server1-production.up.railway.app/toys", {
       method: "POST",
       headers: {
         "content-type": "application/json",

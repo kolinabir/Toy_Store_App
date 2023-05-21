@@ -2,7 +2,7 @@ import React from "react";
 
 const Blogs = () => {
   return (
-    <div className="my-10 space-y-6">
+    <div className="my-10 space-y-6 mx-3">
       <div className="relative">
         <div className="mx-auto mb-10 flex max-w-3xl flex-col overflow-hidden rounded text-center">
           <a

@@ -3,6 +3,8 @@ import Banner from "./Banner";
 import GallerySec from "./GallerySec";
 import Experi from "./Experi";
 import ShopByCat from "./ShopByCat";
+import ReviewSec from "./ReviewSec";
+import TrustedBy from "./TrustedBy";
 
 const FirstPage = () => {
   return (
@@ -29,6 +31,12 @@ const FirstPage = () => {
           Shop by Category
         </h2>
         <ShopByCat></ShopByCat>
+      </div>
+      <div >
+        <TrustedBy></TrustedBy>
+      </div>
+      <div data-aos="fade-left" className="shadow-2xl rounded-2xl my-10">
+        <ReviewSec></ReviewSec>
       </div>
     </div>
   );

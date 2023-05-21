@@ -5,14 +5,15 @@ import { Link } from "react-router-dom";
 const MyToys = () => {
   const { user, loading } = useContext(AuthContext);
   const [myToys, setMyToys] = useState([]);
+  const [reload,setReload] = useState(true);
   
   useEffect(() => {
-    fetch(`http://localhost:5003/toys/seller/${user?.email}`)
+    fetch(`https://toy-server1-production.up.railway.app/toys/seller/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyToys(data));
-  }, []);
+  }, [reload]);
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5003/toys/${_id}`, {
+    fetch(`https://toy-server1-production.up.railway.app/toys/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -20,16 +21,17 @@ const MyToys = () => {
         console.log(data);
         if (data.deletedCount > 0) {
           alert("deleted successfully");
+          setReload(!reload)
         }
       });
   };
   const handleAscending = () => {
-    fetch(`http://localhost:5003/toys/orderAc/${user?.email}`)
+    fetch(`https://toy-server1-production.up.railway.app/toys/orderAc/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   };
   const handleDescending = () => {
-    fetch(`http://localhost:5003/toys/orderDc/${user?.email}`)
+    fetch(`https://toy-server1-production.up.railway.app/toys/orderDc/${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   };

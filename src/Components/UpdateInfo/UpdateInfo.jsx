@@ -16,7 +16,7 @@ const UpdateInfo = () => {
       quantity: quantity,
       description: description,
     };
-    fetch(`http://localhost:5003/toys/${id}`,{
+    fetch(`https://toy-server1-production.up.railway.app/toys/${id}`,{
         method : 'PUT',
         headers:{
             'content-type' : 'application/json'

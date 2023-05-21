@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       {
         path: "alltoys",
         element: <AllToys></AllToys>,
-        loader: () => fetch("http://localhost:5003/toys"),
+        loader: () => fetch("https://toy-server1-production.up.railway.app/toys"),
       },
       {
         path: "addtoy",
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5003/toys/${params.id}`),
+          fetch(`https://toy-server1-production.up.railway.app/toys/${params.id}`),
       },
       {
         path: "updateinfo/:id",

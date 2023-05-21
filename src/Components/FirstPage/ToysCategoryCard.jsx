@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ToysCategoryCard = ({ categoryName }) => {
   const [toys, setToys] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5003/toys/${categoryName}`) // Make a GET request to the server with the activeTab value in the URL
+    fetch(`https://toy-server1-production.up.railway.app/toys/${categoryName}`) // Make a GET request to the server with the activeTab value in the URL
       .then((res) => res.json()) // Convert the response to JSON format
       .then((result) => {
         console.log(result);
