@@ -31,14 +31,28 @@ const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
-      setLoading(false);
       setUser(loggedUser);
+      if (loggedUser?.email) {
+        fetch("http://localhost:5003/jwt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: loggedUser.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("access-token", data?.token);
+          });
+      }
+      setLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
   }, []);
+
   const logOut = () => {
     setLoading(true);
     return signOut(auth);

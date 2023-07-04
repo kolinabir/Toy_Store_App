@@ -5,13 +5,18 @@ import { Link } from "react-router-dom";
 const MyToys = () => {
   const { user, loading } = useContext(AuthContext);
   const [myToys, setMyToys] = useState([]);
-  const [reload,setReload] = useState(true);
-  
+  const [reload, setReload] = useState(true);
+
   useEffect(() => {
-    fetch(`https://toy-server1-production.up.railway.app/toys/seller/${user?.email}`)
+    fetch(`https://toy-server-peach.vercel.app/toys/seller/${user?.email}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   }, [reload]);
+
   const handleDelete = (_id) => {
     fetch(`https://toy-server1-production.up.railway.app/toys/${_id}`, {
       method: "DELETE",
@@ -21,17 +26,21 @@ const MyToys = () => {
         console.log(data);
         if (data.deletedCount > 0) {
           alert("deleted successfully");
-          setReload(!reload)
+          setReload(!reload);
         }
       });
   };
   const handleAscending = () => {
-    fetch(`https://toy-server1-production.up.railway.app/toys/orderAc/${user?.email}`)
+    fetch(
+      `https://toy-server1-production.up.railway.app/toys/orderAc/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   };
   const handleDescending = () => {
-    fetch(`https://toy-server1-production.up.railway.app/toys/orderDc/${user?.email}`)
+    fetch(
+      `https://toy-server1-production.up.railway.app/toys/orderDc/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   };
@@ -63,12 +72,14 @@ const MyToys = () => {
     <div>
       <div className="mx-3 lg:mx-20">
         <div className="h-[100vh] w-full overflow-x-auto">
-            <h1 className="text-center my-4">Order Of Price:</h1>
+          <h1 className="my-4 text-center">Order Of Price:</h1>
           <div className="mb-10 flex justify-center gap-4">
             <button onClick={handleAscending} className="btn">
               Ascending
             </button>
-            <button onClick={handleDescending} className="btn">Descending</button>
+            <button onClick={handleDescending} className="btn">
+              Descending
+            </button>
           </div>
           <table className="table w-full ">
             {/* head */}
@@ -83,13 +94,13 @@ const MyToys = () => {
                 <th>Delete Toy</th>
               </tr>
             </thead>
-            {myToys.length === 0 && (
+            {!myToys && (
               <div className="mx-auto my-20 flex  text-3xl font-bold">
                 <h2>Nothing Added</h2>
               </div>
             )}
             <tbody>
-              {myToys.map((toy) => (
+              {myToys?.map((toy) => (
                 <>
                   <tr>
                     <td>
@@ -97,27 +108,27 @@ const MyToys = () => {
                         <div className="avatar">
                           <div className="mask mask-squircle h-12 w-12">
                             <img
-                              src={toy.pictureURL}
+                              src={toy?.pictureURL}
                               alt="Avatar Tailwind CSS Component"
                             />
                           </div>
                         </div>
                         <div>
-                          <div className="font-bold">{toy.sellerName}</div>
+                          <div className="font-bold">{toy?.sellerName}</div>
                         </div>
                       </div>
                     </td>
                     <td>
-                      {toy.name}
+                      {toy?.name}
                       <br />
                     </td>
-                    <td>{toy.subcategory}</td>
-                    <th>${toy.price}</th>
-                    <td className="text-center">{toy.quantity}</td>
+                    <td>{toy?.subcategory}</td>
+                    <th>${toy?.price}</th>
+                    <td className="text-center">{toy?.quantity}</td>
 
                     <td className="">
                       <Link
-                        to={`/updateinfo/${toy._id}`}
+                        to={`/updateinfo/${toy?._id}`}
                         className="btn-outline btn"
                       >
                         Update
@@ -125,7 +136,7 @@ const MyToys = () => {
                     </td>
                     <td className="">
                       <button
-                        onClick={() => handleDelete(toy._id)}
+                        onClick={() => handleDelete(toy?._id)}
                         className="btn-outline btn"
                       >
                         Delete

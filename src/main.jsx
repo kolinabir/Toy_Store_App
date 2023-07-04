@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -39,12 +39,13 @@ const router = createBrowserRouter([
       },
       {
         path: "blogs",
-        element:<Blogs></Blogs>
+        element: <Blogs></Blogs>,
       },
       {
         path: "alltoys",
         element: <AllToys></AllToys>,
-        loader: () => fetch("https://toy-server1-production.up.railway.app/toys"),
+        loader: () =>
+          fetch("https://toy-server1-production.up.railway.app/toys"),
       },
       {
         path: "addtoy",
@@ -70,7 +71,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://toy-server1-production.up.railway.app/toys/${params.id}`),
+          fetch(
+            `https://toy-server1-production.up.railway.app/toys/${params.id}`
+          ),
       },
       {
         path: "updateinfo/:id",
