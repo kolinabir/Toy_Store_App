@@ -1,21 +1,31 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { data } from "autoprefixer";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyToys = () => {
   const { user, loading } = useContext(AuthContext);
   const [myToys, setMyToys] = useState([]);
   const [reload, setReload] = useState(true);
+  const axiosSecure = useAxiosSecure();
+  // useEffect(() => {
+  //   fetch(`https://toy-server-peach.vercel.app/toys/seller/${user?.email}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setMyToys(data));
+  // }, [reload]);
 
+  // Axios
   useEffect(() => {
-    fetch(`https://toy-server-peach.vercel.app/toys/seller/${user?.email}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setMyToys(data));
-  }, [reload]);
+    axiosSecure
+      .get(`/toys/seller/${user?.email}`)
+      .then((data) => setMyToys(data.data));
+  }, [user, axiosSecure]);
 
   const handleDelete = (_id) => {
     fetch(`https://toy-server1-production.up.railway.app/toys/${_id}`, {
@@ -44,7 +54,7 @@ const MyToys = () => {
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   };
-  if (loading) {
+  if (loading || myToys.length == 0 || !user) {
     return (
       <div role="status">
         <svg

@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 // you can use React.forwardRef to pass the ref too
 
 const AddToy = () => {
   const { user } = useContext(AuthContext);
-
+  const axiosSecure = useAxiosSecure();
   const onSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -29,20 +31,33 @@ const AddToy = () => {
       quantity: quantity,
       pictureURL: pictureURL,
       price: price,
-      description: description
+      description: description,
     };
-    fetch("https://toy-server1-production.up.railway.app/toys", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
+    axiosSecure
+      .post("/toys", data)
       .then((data) => {
-        alert('Toy Added Successfully')
+        console.log(data?.data);
+        data?.data.insertedId && alert("Toy Added Successfully");
         form.reset();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err.message);
       });
+
+    // fetch("http://localhost:5003/toys", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //     Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    // .then((res) => res.json())
+    // .then((data) => {
+    //   alert("Toy Added Successfully");
+    //   form.reset();
+    // });
   };
   return (
     <div className="lg:my-20">
@@ -166,17 +181,17 @@ const AddToy = () => {
             </div>
           </div>
           <div className="my-8 space-y-2">
-          <label className="text-white dark:text-gray-200" htmlFor="price">
-          Description
-              </label>
+            <label className="text-white dark:text-gray-200" htmlFor="price">
+              Description
+            </label>
             <textarea
-            name="description"
+              name="description"
               placeholder="description"
               className="textarea-bordered textarea textarea-lg w-full"
             ></textarea>
           </div>
           <div className="my-5 flex justify-center">
-            <input className="btn" type="submit" value="submit"/>
+            <input className="btn" type="submit" value="submit" />
           </div>
         </form>
       </section>
